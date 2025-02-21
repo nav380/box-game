@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Levelone from '../Levels/Levelone';
 import Level2 from '../Levels/Levol2';
+import Level3 from '../Levels/Level3';
+import Level4 from '../Levels/Level4';
 
 const Home = () => {
     const { id } = useParams();
@@ -17,8 +19,8 @@ const Home = () => {
     const levels = {
         1: <Levelone colbacknext={colbacknext} />,
         2: <Level2 colbacknext={colbacknext} />,
-        3: <Levelone colbacknext={colbacknext} />,
-        4: <Levelone colbacknext={colbacknext} />,
+        3: <Level3 colbacknext={colbacknext} />,
+        4: <Level4 colbacknext={colbacknext} />,
         5: <Levelone colbacknext={colbacknext} />,
         6: <Levelone colbacknext={colbacknext} />,
         7: <Levelone colbacknext={colbacknext} />,

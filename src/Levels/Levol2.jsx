@@ -17,8 +17,9 @@ const Level2 = ({ colbacknext }) => {
 
                 switch (event.key) {
                     case "ArrowUp":
-                        if (prev.top > 55) newTop -= step; // Prevent moving beyond top: 0
-
+                        if (cantmoveup(prev)) {
+                            if (prev.top > 55) newTop -= step; // Prevent moving beyond top: 0
+                        }
                         break;
                     case "ArrowDown":
                         if (cantmovedown(prev)) {
@@ -56,7 +57,7 @@ const Level2 = ({ colbacknext }) => {
     }, []);
 
     const cantmoveup = (prev) => {
-        if (prev.top >= 50 && prev.top <= 100)
+        if ( prev.top  == 150 && prev.left < 800)
             return false;
 
         return true;
@@ -68,7 +69,7 @@ const Level2 = ({ colbacknext }) => {
         return true;
     }
     const cantmoveleft = (prev) => {
-        if (prev.top>=50 && prev.top <=100 && prev.left == 800)
+        if (prev.top >= 50 && prev.top < 150 && prev.left == 800)
             return false;
 
         return true;

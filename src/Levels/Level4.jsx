@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from "react";
 
-const Level3 = ({ colbacknext }) => {
-    const winposition = { top: 700, left: 400 };
-    const [position, setPosition] = useState({ top: 50, left: 50 });
-    const [popwon, setpopwon] = useState(false);
-    const step = 10; // Movement step
+const Level4 = ({ colbacknext }) => {
+    const gameAreaSize = 800; // Game area is 800x800
+    const step = 50; // Movement step to match the grid
+    const boxSize = 50; // Player size
 
-    // List of obstacles (white divs)
+    // Starting and winning positions
+    const [position, setPosition] = useState({ top: 50, left: 50 });
+    const winposition = { top: 450, left: 750 };
+    const [popwon, setpopwon] = useState(false);
+
+    // Maze-like obstacles (White Blocks)
     const obstacles = [
-        { top: 100, left: 0, width: 1200, height: 50 },
-        { top: 200, left: 620, width: 1200, height: 50 },
-        { top: 300, left: 0, width: 1200, height: 50 },
-        { top: 400, left: 620, width: 1200, height: 50 },
-        { top: 500, left: 0, width: 1200, height: 50 },
-        { top: 600, left: 620, width: 1200, height: 50 }
+        { top: 100, left: 0, width: 300, height: 50 },
+        { top: 100, left: 400, width: 300, height: 50 },
+        { top: 200, left: 200, width: 50, height: 200 },
+        { top: 300, left: 500, width: 300, height: 50 },
+        { top: 400, left: 200, width: 200, height: 50 },
+        { top: 400, left: 600, width: 200, height: 50 },
+        { top: 500, left: 300, width: 50, height: 200 },
+        { top: 600, left: 0, width: 600, height: 50 }
     ];
 
-    // Function to check if the next position collides with an obstacle
+    // Collision Detection Function
     const isColliding = (newTop, newLeft) => {
         return obstacles.some(obstacle =>
             newTop < obstacle.top + obstacle.height &&
-            newTop + 50 > obstacle.top &&
+            newTop + boxSize > obstacle.top &&
             newLeft < obstacle.left + obstacle.width &&
-            newLeft + 50 > obstacle.left
+            newLeft + boxSize > obstacle.left
         );
     };
 
@@ -39,7 +45,7 @@ const Level3 = ({ colbacknext }) => {
                         }
                         break;
                     case "ArrowDown":
-                        if (prev.top < window.innerHeight - 150 && !isColliding(prev.top + step, prev.left)) {
+                        if (prev.top < gameAreaSize - boxSize && !isColliding(prev.top + step, prev.left)) {
                             newTop += step;
                         }
                         break;
@@ -49,7 +55,7 @@ const Level3 = ({ colbacknext }) => {
                         }
                         break;
                     case "ArrowRight":
-                        if (prev.left < window.innerWidth - 150 && !isColliding(prev.top, prev.left + step)) {
+                        if (prev.left < gameAreaSize - boxSize && !isColliding(prev.top, prev.left + step)) {
                             newLeft += step;
                         }
                         break;
@@ -57,6 +63,7 @@ const Level3 = ({ colbacknext }) => {
                         return prev;
                 }
 
+                // Check if player reaches the winning position
                 if (newTop === winposition.top && newLeft === winposition.left) {
                     setpopwon(true);
                 }
@@ -92,11 +99,12 @@ const Level3 = ({ colbacknext }) => {
                     </div>
                 </div>
             )}
-            <div className="h-[100vh] bg-purple-400 p-[50px]">
-                <div className="h-[100%] bg-slate-400 relative">
-                    {/* Player Box */}
+
+            <div className="h-screen bg-purple-400 p-10 flex items-center justify-center">
+                <div className="relative w-[800px] h-[800px] bg-slate-400">
+                    {/* Player (Red Box) */}
                     <div
-                        className="h-[50px] w-[50px] absolute z-50 bg-red-400"
+                        className="h-[50px] w-[50px] absolute z-50 bg-red-500"
                         style={{ top: position.top, left: position.left }}
                     ></div>
 
@@ -114,9 +122,9 @@ const Level3 = ({ colbacknext }) => {
                         ></div>
                     ))}
 
-                    {/* Win Position (Blue Box) */}
+                    {/* Winning Position (Blue Box) */}
                     <div
-                        className="h-[50px] w-[50px] absolute bg-blue-400"
+                        className="h-[50px] w-[50px] absolute bg-blue-500"
                         style={winposition}
                     ></div>
                 </div>
@@ -125,4 +133,4 @@ const Level3 = ({ colbacknext }) => {
     );
 };
 
-export default Level3;
+export default Level4;
